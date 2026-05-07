@@ -1,0 +1,99 @@
+.page {
+  min-height: 100vh;
+  background: #EEEEF8;
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  flex: 1;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: #EEEEF8;
+  font-size: 1.1rem;
+  color: #6b7280;
+}
+
+/* Bandeau AI */
+.aiBanner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 1.25rem 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+}
+
+.aiText {
+  font-size: 0.95rem;
+  color: #0000FF;
+}
+
+.aiBtn {
+  background: #0000FF;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.aiBtn:hover {
+  background: #0000CC;
+}
+
+/* Graphiques */
+.sectionTitle {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 1.25rem;
+}
+
+.chartsRow {
+  display: grid;
+  grid-template-columns: 3fr 4fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+/* Footer */
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 3rem;
+  background: #EEEEF8;
+  font-size: 0.85rem;
+  color: #6b7280;
+  border-top: 1px solid #d1d5db;
+}
+
+.footerLinks {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.footerLinks a {
+  cursor: pointer;
+  color: #6b7280;
+}
+
+.footerLinks a:hover {
+  color: #0000FF;
+}

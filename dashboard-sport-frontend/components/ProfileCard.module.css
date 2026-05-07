@@ -1,0 +1,66 @@
+.card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 1.5rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  margin-bottom: 2rem;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 0.25rem;
+}
+
+.member {
+  font-size: 0.9rem;
+  color: #9ca3af;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.distanceLabel {
+  font-size: 0.9rem;
+  color: #9ca3af;
+}
+
+.distanceBadge {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: #0000FF;
+  color: #ffffff;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  min-width: 160px;
+}
+
+.distanceIcon {
+  font-size: 1.5rem;
+}
+
+.distanceValue {
+  font-size: 1.4rem;
+  font-weight: 700;
+}

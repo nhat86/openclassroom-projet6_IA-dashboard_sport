@@ -1,6 +1,6 @@
 "use client"
 
-import { createContext, useState, useEffect, ReactNode } from "react"
+import { createContext, useState, ReactNode } from "react"
 import Cookies from "js-cookie"
 
 interface AuthContextType {
@@ -20,33 +20,27 @@ export const AuthContext = createContext<AuthContextType>({
 })
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [token, setToken] = useState<string | null>(null)
-  const [userId, setUserId] = useState<number | null>(null)
-
-  // Restaure la session au démarrage depuis les cookies
-  useEffect(() => {
-    const savedToken = Cookies.get("token")
+  const [token, setToken] = useState<string | null>(() => Cookies.get("token") ?? null)
+  const [userId, setUserId] = useState<number | null>(() => {
     const savedUserId = Cookies.get("userId")
-
-    if (savedToken && savedUserId) {
-      setToken(savedToken)
-      setUserId(Number(savedUserId))
-    }
-  }, [])
+    return savedUserId ? Number(savedUserId) : null
+  })
 
   const login = (newToken: string, newUserId: number) => {
     setToken(newToken)
     setUserId(newUserId)
 
+    const isProduction = process.env.NODE_ENV === "production"
+
     // expires: 7 = le cookie dure 7 jours
     Cookies.set("token", newToken, {
       expires: 7,
-      secure: true,        // HTTPS uniquement en production
+      secure: isProduction,        // HTTPS uniquement en production
       sameSite: "strict"   // protection CSRF
     })
     Cookies.set("userId", String(newUserId), {
       expires: 7,
-      secure: true,
+      secure: isProduction,
       sameSite: "strict"
     })
   }

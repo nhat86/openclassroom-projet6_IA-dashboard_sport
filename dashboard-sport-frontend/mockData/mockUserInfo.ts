@@ -1,6 +1,6 @@
-import { UserInfo } from "../types"
+import { RawUserInfoResponse } from "../types"
 
-export const mockUserInfo: UserInfo = {
+export const mockUserInfo: RawUserInfoResponse = {
   profile: {
     firstName: "Sophie",
     lastName: "Martin",
@@ -11,7 +11,7 @@ export const mockUserInfo: UserInfo = {
     profilePicture: "http://localhost:8000/images/sophie.jpg"
   },
   statistics: {
-    totalDistance: 2250.2,
+    totalDistance: "2250.2",
     totalSessions: 348,
     totalDuration: 14625
   }
