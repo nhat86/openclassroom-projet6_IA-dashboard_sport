@@ -1,11 +1,11 @@
 [
 {
     "id": "user123",
-    "weeklyGoal": 2,
   "userInfos": {
     "firstName": "Sophie",
     "lastName": "Martin",
     "age": 32,
+    "goal": 2,
     "gender": "female",
     "profilePicture": "http://localhost:8000/images/sophie.jpg",
     "height": 165,
@@ -367,11 +367,11 @@
   },
   {
     "id": "user789",
-    "goal": 3,
     "userInfos": {
       "firstName": "Emma",
       "lastName": "Leroy",
       "age": 28,
+      "goal": 3,
       "gender": "female",
       "height": 170,
       "weight": 62,
