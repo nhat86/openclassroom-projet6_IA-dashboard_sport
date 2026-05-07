@@ -1,0 +1,65 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  height: 60px;
+  background: var(--white);
+  border-bottom: 1px solid #e5e7eb;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.logoIcon {
+  font-size: 1.2rem;
+  color: #FF4444;
+}
+
+.logoText {
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: #0000FF;
+  letter-spacing: 0.1em;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.navLink {
+  font-size: 0.95rem;
+  color: #1a1a1a;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.navLink:hover {
+  color: #0000FF;
+}
+
+.divider {
+  color: #d1d5db;
+  font-size: 1.2rem;
+}
+
+.logoutBtn {
+  background: none;
+  border: none;
+  color: #0000FF;
+  font-size: 0.95rem;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.logoutBtn:hover {
+  text-decoration: underline;
+}
