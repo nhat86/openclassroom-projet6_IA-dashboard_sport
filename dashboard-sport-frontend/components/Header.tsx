@@ -20,9 +20,15 @@ export default function Header() {
         <span className={styles.logoText}>SPORTSEE</span>
       </div>
       <nav className={styles.nav}>
-        <a className={styles.navLink}>Dashboard</a>
-        <a className={styles.navLink}>Coach AI</a>
-        <a className={styles.navLink}>Mon profil</a>
+        <a className={styles.navLink} onClick={() => router.push("/dashboard")}>
+          Dashboard
+        </a>
+        <a className={styles.navLink}>
+          Coach AI
+        </a>
+        <a className={styles.navLink} onClick={() => router.push("/profil")}>
+          Mon profil
+        </a>
         <span className={styles.divider}>|</span>
         <button className={styles.logoutBtn} onClick={handleLogout}>
           Se déconnecter

@@ -6,6 +6,8 @@ export const normalizeUserInfo = (apiResponse: RawUserInfoResponse): UserInfo =>
       firstName: apiResponse.profile?.firstName ?? "Utilisateur",
       lastName: apiResponse.profile?.lastName ?? "",
       createdAt: apiResponse.profile?.createdAt ?? "",
+      gender: apiResponse.profile?.gender ?? "non spécifié",
+      goal: apiResponse.profile?.goal ?? null,
       age: apiResponse.profile?.age ?? null,
       weight: apiResponse.profile?.weight ?? null,
       height: apiResponse.profile?.height ?? null,

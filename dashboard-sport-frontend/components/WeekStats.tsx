@@ -6,6 +6,7 @@ import styles from "./WeekStats.module.css"
 
 interface Props {
   data: ActivitySession[]
+  goal: number
 }
 
 const MS_PER_DAY = 24 * 60 * 60 * 1000
@@ -37,12 +38,6 @@ const sessions: ActivitySession[] = []
 
 data.forEach((session) => {
   const d = new Date(session.date)
-  d.setHours(0, 0, 0, 0) // ignore l'heure pour la comparaison
-  console.log("session date:", d.toISOString())
-  console.log("monday:", monday.toISOString())
-  console.log("today:", today.toISOString())
-  console.log("d >= monday:", d >= monday)
-  console.log("d <= today:", d <= today)
   if (d >= monday && d <= today) {
     sessions.push(session) 
   }
@@ -53,7 +48,7 @@ console.log("Lundi", formatDate(monday), "Aujourd'hui", formatDate(today))
   return { sessions, monday, sunday }
 }
 
-export default function WeekStats({ data }: Props) {
+export default function WeekStats({ data, goal }: Props) {
 
   const { sessions, monday, sunday } = getCurrentWeekSessions(data)
 
@@ -62,7 +57,6 @@ export default function WeekStats({ data }: Props) {
     sessions.reduce((sum, s) => sum + s.distance, 0).toFixed(1)
   )
   const sessionsCount = sessions.length
-  const goal = 6
   const remaining = Math.max(0, goal - sessionsCount)
 
   const weekRange = `Du ${formatDate(monday)} au ${formatDate(sunday)}`

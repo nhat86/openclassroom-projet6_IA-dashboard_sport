@@ -8,6 +8,8 @@ export interface UserProfile {
   firstName: string
   lastName: string
   createdAt: string
+  gender: string
+  goal: number | null
   age: number | null
   weight: number | null
   height: number | null
@@ -27,7 +29,9 @@ export interface RawUserInfoResponse {
     age: number
     weight: number
     height: number
+    goal: number | null
     profilePicture: string
+    gender: string
   }
   statistics: {
     totalDistance: string  // ← string dans l'API, converti en number par le mapper

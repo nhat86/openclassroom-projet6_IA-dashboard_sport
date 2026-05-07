@@ -65,6 +65,7 @@ export default function DashboardPage() {
         {/* Cette semaine */}
         <WeekStats
           data={activity}
+          goal={userInfo.profile.goal}
         />
       </main>
 
