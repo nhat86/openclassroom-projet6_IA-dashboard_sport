@@ -7,7 +7,7 @@ import Header from "../../components/Header"
 import Footer from "../../components/Footer"
 import ProfileCard from "../../components/ProfileCard"
 import ActivityChart from "../../components/ActivityChart"
-import HeartRateChart from "../../components/HeartChart"
+import HeartChart from "../../components/HeartChart"
 import WeekStats from "../../components/WeekStats"
 import styles from "./dashboard.module.css"
 
@@ -59,7 +59,9 @@ export default function DashboardPage() {
           <ActivityChart
             data={activity}
           />
-          
+          <HeartChart
+            data={activity}
+          />
         </div>
 
         {/* Cette semaine */}
