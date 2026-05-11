@@ -42,8 +42,6 @@ data.forEach((session) => {
     sessions.push(session) 
   }
 })
-console.log("Sessions de la semaine", sessions)
-console.log("Lundi", formatDate(monday), "Aujourd'hui", formatDate(today))
 
   return { sessions, monday, sunday }
 }

@@ -55,7 +55,7 @@ export default function ProfilPage() {
 
   return (
     <div className={styles.page}>
-      <Header />
+      <Header userInfo={userInfo} activity={activity} />
 
       <main className={styles.main}>
         <div className={styles.grid}>

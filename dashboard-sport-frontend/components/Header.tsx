@@ -2,9 +2,16 @@
 
 import { useAuth } from "../hooks/useAuth"
 import { useRouter } from "next/navigation"
+import ChatModal from "./Chat/ChatModal/ChatModal"
 import styles from "./Header.module.css"
+import { UserInfo, ActivitySession } from "../types"
 
-export default function Header() {
+interface Props {
+  userInfo: UserInfo
+  activity: ActivitySession[]
+}
+
+export default function Header({ userInfo, activity }: Props) {
   const { logout } = useAuth()
   const router = useRouter()
 
@@ -23,9 +30,10 @@ export default function Header() {
         <a className={styles.navLink} onClick={() => router.push("/dashboard")}>
           Dashboard
         </a>
-        <a className={styles.navLink}>
-          Coach AI
-        </a>
+
+        {/* ✅ passe les données au ChatModal */}
+        <ChatModal userInfo={userInfo} activity={activity} />
+
         <a className={styles.navLink} onClick={() => router.push("/profil")}>
           Mon profil
         </a>

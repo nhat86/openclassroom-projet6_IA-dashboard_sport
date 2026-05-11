@@ -39,7 +39,7 @@ export default function DashboardPage() {
 
   return (
     <div className={styles.page}>
-      <Header />
+      <Header userInfo={userInfo} activity={activity} />
 
       <main className={styles.main}>
         {/* Bandeau AI */}
