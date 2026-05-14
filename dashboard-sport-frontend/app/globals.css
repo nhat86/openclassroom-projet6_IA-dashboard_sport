@@ -3,3 +3,30 @@
   padding: 0;
   box-sizing: border-box;
 }
+.notFound {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.notFoundTitle {
+  font-size: 72px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.notFoundText {
+  color: #666;
+  font-size: 18px;
+}
+
+.notFoundButton {
+  padding: 12px 20px;
+  background: black;
+  color: white;
+  border-radius: 8px;
+  text-decoration: none;
+}

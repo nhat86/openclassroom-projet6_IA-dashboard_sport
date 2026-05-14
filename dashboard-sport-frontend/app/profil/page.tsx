@@ -1,5 +1,8 @@
 "use client"
 
+import { useEffect } from "react"
+import { useRouter } from "next/navigation"
+import Image from "next/image"
 import { useAuth } from "../../hooks/useAuth"
 import { useInfo } from "../../hooks/useInfo"
 import { useActivity } from "../../hooks/useActivity"
@@ -8,8 +11,16 @@ import Footer from "../../components/Footer"
 import styles from "./profil.module.css"
 
 export default function ProfilPage() {
+  const router = useRouter()
   const { token } = useAuth()
   const currentDate = new Date().toISOString().split('T')[0]
+
+  useEffect(() => {
+    if (!token) {
+      router.replace("/login")
+    }
+  }, [token, router])
+
   const { data: userInfo, loading: userLoading } = useInfo(token)
   const { data: activity, loading: actLoading } = useActivity(
     token,
@@ -65,10 +76,12 @@ export default function ProfilPage() {
 
             {/* Card identité */}
             <div className={styles.card}>
-              <img
+              <Image
                 src={profile.profilePicture ?? "/images/default-avatar.png"}
                 alt={profile.firstName}
                 className={styles.avatar}
+                width={110}
+                height={110}
               />
               <div className={styles.identity}>
                 <h2 className={styles.name}>
