@@ -122,6 +122,7 @@ export default function HeartChart({
     avgSum: 0,
     count: 0,
   }))
+  
 
   filtered.forEach((session) => {
     const idx = getDayIndex(session.date)

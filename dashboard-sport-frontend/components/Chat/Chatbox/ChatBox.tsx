@@ -28,68 +28,9 @@ export default function ChatBox({ userInfo, activity }: Props) {
   ]
 
   // ✅ Construit le contexte utilisateur pour le prompt
-  const buildUserContext = (): string => {
-    const { profile, statistics } = userInfo
-
-    const totalCalories = activity.reduce((sum, s) => sum + s.caloriesBurned, 0)
-    const avgHeartRate = activity.length > 0
-      ? Math.round(activity.reduce((sum, s) => sum + s.heartRate.average, 0) / activity.length)
-      : 0
-    const avgDistance = activity.length > 0
-      ? parseFloat((activity.reduce((sum, s) => sum + s.distance, 0) / activity.length).toFixed(1))
-      : 0
-
-    const today = new Date()
-    today.setHours(23, 59, 59, 999)
-    const last10Sessions = [...activity]
-      .filter((s) => new Date(s.date) <= today)        // ✅ seulement passées
-      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()) // plus récent en premier
-      .slice(0, 10)   
-
-    const last10Text = last10Sessions
-      .map((s, i) =>
-        `${i + 1}. ${s.date} — ${s.distance}km en ${s.duration}min | BPM moy: ${s.heartRate.average} | Calories: ${s.caloriesBurned}`
-      )
-      .join("\n")
-    return `
-Tu es un coach sportif IA expert. Tu aides l'utilisateur à améliorer ses performances sportives.
-Voici les informations de l'utilisateur :
-
---- PROFIL ---
-Prénom : ${profile.firstName}
-Âge : ${profile.age} ans
-Poids : ${profile.weight} kg
-Taille : ${profile.height} cm
-Membre depuis : ${profile.createdAt}
-
---- STATISTIQUES GLOBALES ---
-Distance totale : ${statistics.totalDistance} km
-Nombre de sessions : ${statistics.totalSessions}
-Durée totale : ${statistics.totalDuration} minutes
-Calories brûlées au total : ${totalCalories} cal
-
---- PERFORMANCES RÉCENTES (${activity.length} sessions) ---
-Distance moyenne par session : ${avgDistance} km
-Fréquence cardiaque moyenne : ${avgHeartRate} BPM
-
---- 10 DERNIÈRES COURSES ---
-${last10Text}
-
---- INSTRUCTIONS ---
-- Réponds toujours en français
-- Sois encourageant et bienveillant
-- Personnalise tes réponses avec les données de l'utilisateur
-- Donne des conseils concrets et adaptés
-- Réponds de façon concise (max 3-4 phrases)
-    `.trim()
-  }
-
   const sendMessage = async (message?: string) => {
     const msg = message || currentMessage
     if (!msg.trim() || isLoading) return
-    const systemPrompt = buildUserContext()
-  console.log("=== SYSTEM PROMPT ===")
-  console.log(systemPrompt)
     setIsLoading(true)
     setError(null)
     setCurrentMessage("")
@@ -102,8 +43,9 @@ ${last10Text}
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           message: msg,
-          systemPrompt: buildUserContext(),  // ✅ contexte user envoyé
-          history: messages                  // ✅ historique pour la continuité
+          history: messages ,
+          userInfo,
+          activity                 
         }),
       })
 
@@ -116,7 +58,6 @@ ${last10Text}
 
     } catch (err) {
       setError("Une erreur est survenue. Veuillez réessayer.")
-      console.error(err)
     } finally {
       setIsLoading(false)
     }
@@ -208,8 +149,6 @@ ${last10Text}
         <button
           onClick={() => 
             {
-              console.log("=== BOUTON CLIQUÉ ===")
-              console.log("currentMessage:", currentMessage)
               sendMessage()
             }}
           disabled={isLoading || !currentMessage.trim()}

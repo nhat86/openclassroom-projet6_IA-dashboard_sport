@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server"
-
+import { buildUserContext } from "@/lib/ai/buildUserContext"
 export async function POST(req: NextRequest) {
-  const { message, systemPrompt, history } = await req.json()
-
+  const { message, history, userInfo, activity } = await req.json()
+  const systemPrompt = buildUserContext(userInfo, activity)
   // ✅ Filtre le message de bienvenue initial
   const filteredHistory = history.filter(
     (msg: { role: string; content: string }) =>
@@ -18,8 +18,6 @@ export async function POST(req: NextRequest) {
     { role: "user", content: message }
   ]
 
-  console.log("=== MESSAGES ENVOYES A MISTRAL ===")
-  console.log(JSON.stringify(messages, null, 2))
 
   const response = await fetch(process.env.MISTRAL_API_URL!, {
     method: "POST",
