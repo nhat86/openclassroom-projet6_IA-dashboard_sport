@@ -63,7 +63,6 @@ export default function ProfilPage() {
   // Formatage durée totale
   const totalHours = Math.floor(statistics.totalDuration / 60)
   const totalMinutes = statistics.totalDuration % 60
-
   return (
     <div className={styles.page}>
       <Header userInfo={userInfo} activity={activity} />
@@ -77,11 +76,12 @@ export default function ProfilPage() {
             {/* Card identité */}
             <div className={styles.card}>
               <Image
-                src={profile.profilePicture ?? "/images/default-avatar.png"}
+                src={profile.profilePicture}
                 alt={profile.firstName}
                 className={styles.avatar}
                 width={110}
                 height={110}
+                unoptimized
               />
               <div className={styles.identity}>
                 <h2 className={styles.name}>
