@@ -11,6 +11,7 @@ import ProfileCard from "../../components/ProfileCard";
 import ActivityChart from "../../components/ActivityChart";
 import HeartChart from "../../components/HeartChart";
 import WeekStats from "../../components/WeekStats";
+import ChatModal from "../../components/Chat/ChatModal/ChatModal";
 import styles from "./dashboard.module.css";
 
 export default function DashboardPage() {
@@ -34,7 +35,7 @@ export default function DashboardPage() {
   }, [token, router]);
 
   // ✅ 2. LOADING STATE
-  if (userLoading || actLoading) {
+  if (!token || userLoading || actLoading) {
     return (
       <div className={styles.loading}>
         <p>Chargement...</p>
@@ -61,7 +62,15 @@ export default function DashboardPage() {
           <p className={styles.aiText}>
             ✦ Posez vos questions sur votre programme, vos performances ou vos objectifs.
           </p>
-          <button className={styles.aiBtn}>Lancer une conversation</button>
+          <ChatModal
+            userInfo={userInfo}
+            activity={activity}
+            trigger={(open) => (
+              <button type="button" onClick={open} className={styles.aiBtn}>
+                Lancer une conversation
+              </button>
+            )}
+          />
         </div>
 
         <ProfileCard userInfo={userInfo} />
@@ -77,7 +86,7 @@ export default function DashboardPage() {
 
         <WeekStats
           data={activity}
-          goal={userInfo.profile.goal}
+          goal={userInfo.profile.goal ?? 0}
         />
       </main>
 

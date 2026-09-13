@@ -1,4 +1,5 @@
 import { UserInfo, RawUserInfoResponse, ActivitySession, RawActivitySession } from "../types"
+import { API_URL } from "./config"
 
 export const normalizeUserInfo = (apiResponse: RawUserInfoResponse): UserInfo => {
   return {
@@ -11,7 +12,9 @@ export const normalizeUserInfo = (apiResponse: RawUserInfoResponse): UserInfo =>
       age: apiResponse.profile?.age ?? null,
       weight: apiResponse.profile?.weight ?? null,
       height: apiResponse.profile?.height ?? null,
-      profilePicture: apiResponse.profile?.profilePicture ?? null,
+      profilePicture: apiResponse.profile?.profilePicture?.startsWith("/")
+      ? `${API_URL}${apiResponse.profile.profilePicture}`
+      : apiResponse.profile?.profilePicture ?? null,
     },
     statistics: {
       // L'API retourne totalDistance en string → on convertit en number
@@ -31,9 +34,9 @@ export const normalizeActivity = (apiResponse: RawActivitySession[]): ActivitySe
     distance: session.distance,
     duration: session.duration,
     heartRate: {
-      min: session.heartRate.min,
-      max: session.heartRate.max,
-      average: session.heartRate.average,
+      min: session.heartRate?.min ?? 0,
+      max: session.heartRate?.max ?? 0,
+      average: session.heartRate?.average ?? 0,
     },
     caloriesBurned: session.caloriesBurned,
   }))

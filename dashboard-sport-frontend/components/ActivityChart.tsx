@@ -12,7 +12,7 @@ import {
   Legend,
   ResponsiveContainer
 } from "recharts"
-import { ActivitySession } from "../types"
+import { ActivitySession, LegendEntry } from "../types"
 import styles from "./Chart.module.css"
 
 interface Props {
@@ -109,13 +109,12 @@ const CustomTooltip = ({ active, payload }: CustomTooltipProps) => {
   )
 }
 
-const renderLegend = (props: any) => {
-  const { payload } = props
+const renderLegend = ({ payload }: { payload?: ReadonlyArray<LegendEntry> }) => {
   if (!payload || payload.length === 0) return null
 
   return (
     <div className={styles.legendContainer}>
-      {payload.map((entry: any, index: number) => (
+      {payload.map((entry, index) => (
         <div key={`legend-${index}`} className={styles.legendItem}>
           <span
             className={styles.legendDot}

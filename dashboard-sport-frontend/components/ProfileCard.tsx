@@ -1,9 +1,13 @@
+import Image from "next/image"
 import { UserInfo } from "../types"
+import { API_URL } from "../services/config"
 import styles from "./ProfileCard.module.css"
 
 interface Props {
   userInfo: UserInfo
 }
+
+const DEFAULT_AVATAR = `${API_URL}/images/avatar.png`
 
 export default function ProfileCard({ userInfo }: Props) {
   const { profile, statistics } = userInfo
@@ -17,10 +21,13 @@ export default function ProfileCard({ userInfo }: Props) {
   return (
     <div className={styles.card}>
       <div className={styles.left}>
-        <img
-          src={profile.profilePicture ?? "/images/default-avatar.png"}
+        <Image
+          src={profile.profilePicture ?? DEFAULT_AVATAR}
           alt={`${profile.firstName} ${profile.lastName}`}
           className={styles.avatar}
+          width={100}
+          height={100}
+          unoptimized
         />
         <div className={styles.info}>
           <h2 className={styles.name}>

@@ -55,6 +55,11 @@ export interface RawActivitySession {
 }
 
 // Données normalisées utilisées dans l'app
+export interface LegendEntry {
+  value?: string | number
+  color?: string
+}
+
 export interface ActivitySession {
   date: string
   day: string          

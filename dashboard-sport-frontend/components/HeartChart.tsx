@@ -12,7 +12,7 @@ import {
   ResponsiveContainer,
 } from "recharts"
 
-import { ActivitySession } from "../types"
+import { ActivitySession, LegendEntry } from "../types"
 import styles from "./Chart.module.css"
 
 interface Props {
@@ -179,15 +179,14 @@ export default function HeartChart({
   // Custom legend
   // ======================================================
 
-  const renderLegend = (props: any) => {
-    const { payload } = props
+  const renderLegend = ({ payload }: { payload?: ReadonlyArray<LegendEntry> }) => {
 
     if (!payload) return null
 
     return (
       <div className={styles.legendContainer}>
         {payload.map(
-          (entry: any, index: number) => (
+          (entry, index) => (
             <div
               key={index}
               className={styles.legendItem}

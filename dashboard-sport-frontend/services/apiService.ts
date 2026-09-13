@@ -1,15 +1,13 @@
-import { mockUserInfo } from "../mockData/mockUserInfo"
-import { mockActivity } from "../mockData/mockActivity"
 import { normalizeUserInfo, normalizeActivity } from "./dataMapper"
+import { API_URL } from "./config"
 import { UserInfo, ActivitySession } from "../types"
 
-const USE_MOCK = true  // ← false quand tu branches la vraie API
-const BASE_URL = "http://localhost:8000"
+
 
 // ===== LOGIN =====
 export const loginUser = async (username: string, password: string) => {
   try {
-    const response = await fetch(`${BASE_URL}/api/login`, {
+    const response = await fetch(`${API_URL}/api/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -35,7 +33,7 @@ export const loginUser = async (username: string, password: string) => {
 export const getUserInfo = async (token: string): Promise<UserInfo> => {
   
 
-  const response = await fetch(`${BASE_URL}/api/user-info`, {
+  const response = await fetch(`${API_URL}/api/user-info`, {
     headers: {
       Authorization: `Bearer ${token}`
     }
@@ -56,7 +54,7 @@ export const getActivity = async (
   
 
   const response = await fetch(
-    `${BASE_URL}/api/user-activity?startWeek=${startWeek}&endWeek=${endWeek}`,
+    `${API_URL}/api/user-activity?startWeek=${startWeek}&endWeek=${endWeek}`,
     {
       headers: {
         Authorization: `Bearer ${token}`

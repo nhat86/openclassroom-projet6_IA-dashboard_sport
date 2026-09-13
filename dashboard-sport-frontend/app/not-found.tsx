@@ -6,7 +6,7 @@ export default function NotFound() {
       <h1 className="notFoundTitle">404</h1>
 
       <p className="notFoundText">
-        Cette page n'existe pas.
+        Cette page n&apos;existe pas.
       </p>
 
       <Link href="/" className="notFoundButton">

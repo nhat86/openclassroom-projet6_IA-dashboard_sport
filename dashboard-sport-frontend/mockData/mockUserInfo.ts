@@ -5,10 +5,12 @@ export const mockUserInfo: RawUserInfoResponse = {
     firstName: "Sophie",
     lastName: "Martin",
     createdAt: "2025-01-01",
+    gender: "female",
+    goal: 2,
     age: 32,
     weight: 60,
     height: 165,
-    profilePicture: "http://localhost:8000/images/sophie.jpg"
+    profilePicture: "/images/sophie.jpg"
   },
   statistics: {
     totalDistance: "2250.2",
