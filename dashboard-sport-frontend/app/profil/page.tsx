@@ -6,6 +6,7 @@ import Image from "next/image"
 import { useAuth } from "../../hooks/useAuth"
 import { useInfo } from "../../hooks/useInfo"
 import { useActivity } from "../../hooks/useActivity"
+import { API_URL } from "../../services/config"
 import Header from "../../components/Header"
 import Footer from "../../components/Footer"
 import styles from "./profil.module.css"
@@ -14,6 +15,7 @@ export default function ProfilPage() {
   const router = useRouter()
   const { token } = useAuth()
   const currentDate = new Date().toISOString().split('T')[0]
+  const startDate = "2025-01-01"
 
   useEffect(() => {
     if (!token) {
@@ -24,11 +26,11 @@ export default function ProfilPage() {
   const { data: userInfo, loading: userLoading } = useInfo(token)
   const { data: activity, loading: actLoading } = useActivity(
     token,
-    "2025-01-01",
+    startDate,
     currentDate
   )
 
-  if (userLoading || actLoading) {
+  if (!token || userLoading || actLoading) {
     return <div className={styles.loading}>Chargement...</div>
   }
 
@@ -46,11 +48,11 @@ export default function ProfilPage() {
   // Calculs depuis activity
   const totalCalories = activity.reduce((sum, s) => sum + s.caloriesBurned, 0)
   const totalSessions = activity.length
-  // ✅ Jours de repos = jours depuis membre - nombre de sessions
+  // ✅ Jours de repos = jours de la période affichée - nombre de sessions
   const MS_PER_DAY = 24 * 60 * 60 * 1000
-  const memberDate = new Date(profile.createdAt)
+  const rangeStart = new Date(startDate)
   const today = new Date()
-  const totalDays = Math.floor((today.getTime() - memberDate.getTime()) / MS_PER_DAY)
+  const totalDays = Math.floor((today.getTime() - rangeStart.getTime()) / MS_PER_DAY) + 1
   const restDays = Math.max(0, totalDays - totalSessions)
 
   // Formatage date membre
@@ -76,7 +78,7 @@ export default function ProfilPage() {
             {/* Card identité */}
             <div className={styles.card}>
               <Image
-                src={profile.profilePicture}
+                src={profile.profilePicture ?? `${API_URL}/images/avatar.png`}
                 alt={profile.firstName}
                 className={styles.avatar}
                 width={110}

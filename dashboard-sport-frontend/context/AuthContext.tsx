@@ -5,9 +5,9 @@ import Cookies from "js-cookie"
 
 interface AuthContextType {
   token: string | null
-  userId: number | null
+  userId: string | null
   isAuthenticated: boolean
-  login: (token: string, userId: number) => void
+  login: (token: string, userId: string) => void
   logout: () => void
 }
 
@@ -21,12 +21,9 @@ export const AuthContext = createContext<AuthContextType>({
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [token, setToken] = useState<string | null>(() => Cookies.get("token") ?? null)
-  const [userId, setUserId] = useState<number | null>(() => {
-    const savedUserId = Cookies.get("userId")
-    return savedUserId ? Number(savedUserId) : null
-  })
+  const [userId, setUserId] = useState<string | null>(() => Cookies.get("userId") ?? null)
 
-  const login = (newToken: string, newUserId: number) => {
+  const login = (newToken: string, newUserId: string) => {
     setToken(newToken)
     setUserId(newUserId)
 
@@ -38,7 +35,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       secure: isProduction,        // HTTPS uniquement en production
       sameSite: "strict"   // protection CSRF
     })
-    Cookies.set("userId", String(newUserId), {
+    Cookies.set("userId", newUserId, {
       expires: 7,
       secure: isProduction,
       sameSite: "strict"

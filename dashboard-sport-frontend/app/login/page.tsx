@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
+import Image from "next/image"
 import { useAuth } from "../../hooks/useAuth"
 import { loginUser } from "../../services/apiService"
 import styles from "./login.module.css"
@@ -98,9 +99,11 @@ export default function LoginPage() {
 
       {/* Panneau droit — photo */}
       <div className={styles.rightPanel}>
-        <img
+        <Image
           src="/images/marathon.jpg"
           alt="Marathon"
+          fill
+          sizes="50vw"
           className={styles.photo}
         />
       </div>

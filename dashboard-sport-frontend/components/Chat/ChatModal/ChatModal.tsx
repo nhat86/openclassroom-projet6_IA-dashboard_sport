@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, ReactNode } from "react"
 import ChatBox from "../ChatBox/ChatBox"
 import styles from "./ChatModal.module.css"
 import { UserInfo, ActivitySession } from "../../../types"
@@ -8,9 +8,10 @@ import { UserInfo, ActivitySession } from "../../../types"
 interface Props {
   userInfo: UserInfo
   activity: ActivitySession[]
+  trigger?: (open: () => void) => ReactNode
 }
 
-export default function ChatModal({ userInfo, activity }: Props) {
+export default function ChatModal({ userInfo, activity, trigger }: Props) {
   const [isOpen, setIsOpen] = useState(false)
 
   const openModal = () => setIsOpen(true)
@@ -30,16 +31,20 @@ export default function ChatModal({ userInfo, activity }: Props) {
 
   return (
     <>
-      {/* Bouton "Coach AI" dans la navbar */}
-      <a onClick={openModal} className={styles.navLink}>
-        Coach AI
-      </a>
+      {/* Déclencheur : bouton custom ou lien "Coach AI" dans la navbar */}
+      {trigger ? (
+        trigger(openModal)
+      ) : (
+        <button type="button" onClick={openModal} className={styles.navLink}>
+          Coach AI
+        </button>
+      )}
 
       {/* Overlay de la modale */}
       {isOpen && (
         <div className={styles.modalOverlay} onClick={closeModal}>
           <div className={styles.modalContent} onClick={handleModalClick}>
-            {/* ✅ passe les données au ChatBox */}
+            {/* 📌 passe les données au ChatBox */}
             <ChatBox userInfo={userInfo} activity={activity} />
           </div>
         </div>

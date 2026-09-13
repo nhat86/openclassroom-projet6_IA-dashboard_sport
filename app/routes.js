@@ -47,6 +47,11 @@ router.get("/api/user-info", authenticateToken, (req, res) => {
   const token = req.headers.authorization.split(" ")[1];
   const decodedToken = jwt.verify(token, SECRET_KEY);
   const user = getUserById(decodedToken.userId);
+
+  if (!user) {
+    return res.status(404).json({ message: "User not found" });
+  }
+
   const runningData = user.runningData;
 
   // Calculate overall statistics

@@ -46,6 +46,30 @@ data.forEach((session) => {
   return { sessions, monday, sunday }
 }
 
+interface CustomTooltipProps {
+  active?: boolean
+  payload?: ReadonlyArray<{ name?: string; value?: number }>
+  sessions: ActivitySession[]
+}
+
+const CustomTooltip = ({ active, payload, sessions }: CustomTooltipProps) => {
+  if (!active || !payload || payload.length === 0) return null
+
+  const item = payload[0]
+  let content = `${item.value} sessions`
+
+  if (!item.name?.includes("restants")) {
+    const dates = sessions.map(s => formatDate(new Date(s.date))).join(", ")
+    content += `\nDates: ${dates}`
+  }
+
+  return (
+    <div className={styles.tooltip}>
+      <div className={styles.tooltipValue}>{content}</div>
+    </div>
+  )
+}
+
 export default function WeekStats({ data, goal }: Props) {
 
   const { sessions, monday, sunday } = getCurrentWeekSessions(data)
@@ -64,23 +88,6 @@ export default function WeekStats({ data, goal }: Props) {
     { name: `${remaining} restants`, value: remaining > 0 ? remaining : 0.01 }, // évite donut vide
   ]
 
-  const CustomTooltip = ({ active, payload }: any) => {
-    if (!active || !payload || payload.length === 0) return null
-
-    const item = payload[0]
-    let content = `${item.value} sessions`
-
-    if (item.name.includes("réalisées")) {
-      const dates = sessions.map(s => formatDate(new Date(s.date))).join(", ")
-      content += `\nDates: ${dates}`
-    }
-
-    return (
-      <div className={styles.tooltip}>
-        <div className={styles.tooltipValue}>{content}</div>
-      </div>
-    )
-  }
 
   return (
     <div className={styles.section}>
@@ -115,7 +122,7 @@ export default function WeekStats({ data, goal }: Props) {
                   <span style={{ color: "#9ca3af", fontSize: "12px" }}>{value}</span>
                 )}
               />
-              <Tooltip content={<CustomTooltip />} />
+              <Tooltip content={<CustomTooltip sessions={sessions} />} />
             </PieChart>
           </ResponsiveContainer>
         </div>
@@ -123,7 +130,7 @@ export default function WeekStats({ data, goal }: Props) {
         {/* Stats Cards */}
         <div className={styles.statsCol}>
           <div className={styles.statCard}>
-            <p className={styles.statLabel}>Durée d'activité</p>
+            <p className={styles.statLabel}>Durée d&apos;activité</p>
             <p className={styles.statValue}>
               <span className={styles.blue}>{totalDuration}</span>
               {" "}

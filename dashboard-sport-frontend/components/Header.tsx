@@ -27,16 +27,16 @@ export default function Header({ userInfo, activity }: Props) {
         <span className={styles.logoText}>SPORTSEE</span>
       </div>
       <nav className={styles.nav}>
-        <a className={styles.navLink} onClick={() => router.push("/dashboard")}>
+        <button type="button" className={styles.navLink} onClick={() => router.push("/dashboard")}>
           Dashboard
-        </a>
+        </button>
 
         {/* ✅ passe les données au ChatModal */}
         <ChatModal userInfo={userInfo} activity={activity} />
 
-        <a className={styles.navLink} onClick={() => router.push("/profil")}>
+        <button type="button" className={styles.navLink} onClick={() => router.push("/profil")}>
           Mon profil
-        </a>
+        </button>
         <span className={styles.divider}>|</span>
         <button className={styles.logoutBtn} onClick={handleLogout}>
           Se déconnecter

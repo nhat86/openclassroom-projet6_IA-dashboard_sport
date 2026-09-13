@@ -56,7 +56,7 @@ export default function ChatBox({ userInfo, activity }: Props) {
       const data = await response.json()
       setMessages((prev) => [...prev, { role: "assistant", content: data.response }])
 
-    } catch (err) {
+    } catch {
       setError("Une erreur est survenue. Veuillez réessayer.")
     } finally {
       setIsLoading(false)

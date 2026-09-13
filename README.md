@@ -50,15 +50,15 @@ The API uses JWT (JSON Web Token) authentication. To access the endpoints:
 1. First obtain a JWT token by logging in:
 
 ```bash
-curl -X POST http://localhost:8000/login \
+curl -X POST http://localhost:8000/api/login \
   -H "Content-Type: application/json" \
-  -d '{"username": "karldovineau", "password": "password123"}'
+  -d '{"username": "sophiemartin", "password": "password123"}'
 ```
 
 2. Use the received token in subsequent requests in the Authorization header:
 
 ```bash
-curl -H "Authorization: Bearer your-jwt-token" http://localhost:8000/user
+curl -H "Authorization: Bearer your-jwt-token" http://localhost:8000/api/user-info
 ```
 
 ### 4.1 Available Users
@@ -73,7 +73,7 @@ Currently, the API has three demo users:
 
 ### 5.1 Authentication Endpoint
 
-- `POST /login` - Authenticates a user and returns a JWT token
+- `POST /api/login` - Authenticates a user and returns a JWT token
   - Required body: `{ "username": "string", "password": "string" }`
   - Returns: `{ "token": "jwt-token", "userId": number }`
 
@@ -99,17 +99,11 @@ Returns running sessions between two dates.
 - `endWeek`: End date (ISO format)
 
 
-#### Get Profile Image
+#### Access Images
 ```http
-GET /api/profile-image
+GET /images/<filename>
 ```
-Returns the user's profile image path.
-
-#### Access Uploaded Images
-```http
-GET /uploads/<filename>
-```
-Endpoint to access uploaded images.
+Endpoint to access the user profile images.
 
 
 #### Notes
@@ -124,15 +118,15 @@ Endpoint to access uploaded images.
 
 ```bash
 # Login
-curl -X POST http://localhost:8000/login \
+curl -X POST http://localhost:8000/api/login \
   -H "Content-Type: application/json" \
-  -d '{"username": "karldovineau", "password": "password123"}'
+  -d '{"username": "sophiemartin", "password": "password123"}'
 
 # Get user data
-curl -H "Authorization: Bearer your-jwt-token" http://localhost:8000/user
+curl -H "Authorization: Bearer your-jwt-token" http://localhost:8000/api/user-info
 
 # Get user activity
-curl -H "Authorization: Bearer your-jwt-token" http://localhost:8000/user/activity
+curl -H "Authorization: Bearer your-jwt-token" http://localhost:8000/api/user-activity?startWeek=2025-01-01&endWeek=2025-12-31
 ```
 
 ### 5.4 Error Responses
